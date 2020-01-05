@@ -1,5 +1,4 @@
 import vk_api
-from token_holder import token as t
 from vk_api.utils import get_random_id
 from vk_api.bot_longpoll import VkBotLongPoll, VkBotEventType
 mayhem = ['пиздец', 'беспредел']
@@ -10,7 +9,7 @@ language = ['лангуаже','лангуаге']
 sesssion = ['сессия', 'экзамен', 'добор', 'пересдача']
 ugay = ['сука я кто','сука, я кто']
 proizv = ['папей производных']
-vk_session = vk_api.VkApi(token=t())
+vk_session = vk_api.VkApi(token="05128f85ead375f22797a6becd5c6dcf089a0fe8b66def904b9ed8166c471f1c51fbb95582ba30d89501f")
 vk = vk_session.get_api()
 dangerous_point = False
 longpoll = VkBotLongPoll(vk_session, "190285544")

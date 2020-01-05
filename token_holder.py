@@ -1,2 +1,0 @@
-def token():
-    return "05128f85ead375f22797a6becd5c6dcf089a0fe8b66def904b9ed8166c471f1c51fbb95582ba30d89501f"
