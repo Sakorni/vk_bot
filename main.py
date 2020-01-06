@@ -9,6 +9,7 @@ language = ['лангуаже','лангуаге']
 sesssion = ['сессия', 'экзамен', 'добор', 'пересдача']
 ugay = ['сука я кто','сука, я кто']
 proizv = ['папей производных']
+delaetsya = ['делается']
 vk_session = vk_api.VkApi(token="05128f85ead375f22797a6becd5c6dcf089a0fe8b66def904b9ed8166c471f1c51fbb95582ba30d89501f")
 vk = vk_session.get_api()
 dangerous_point = False
@@ -45,6 +46,13 @@ for event in longpoll.listen():
                                 attachment='photo-190285544_457239017')
                             firstone = False
                             break
+                if firstone:
+                        if 'кошмар?' in text.lower():
+                            vk.messages.send(
+                                chat_id=event.chat_id,
+                                random_id=get_random_id(),
+                                message='Кошмар!')
+                            firstone = False
                 if firstone:
                     for word in agression:
                         if word in text.lower():
@@ -97,5 +105,22 @@ for event in longpoll.listen():
                                 chat_id=event.chat_id,
                                 random_id=get_random_id(),
                                 attachment='photo-190285544_457239023')
+                            firstone = False
+                            break
+                if firstone:
+                    print(event.object.get('from_id'))
+                    if 'помидор' in text.lower() and event.object.get('from_id') == 273576556:
+                        vk.messages.send(
+                            chat_id=event.chat_id,
+                            random_id=get_random_id(),
+                            attachment='photo-190285544_457239029')
+                        firstone = False
+                if firstone:
+                    for word in delaetsya:
+                        if word in text.lower():
+                            vk.messages.send(
+                                chat_id=event.chat_id,
+                                random_id=get_random_id(),
+                                attachment='photo-190285544_457239028')
                             firstone = False
                             break
