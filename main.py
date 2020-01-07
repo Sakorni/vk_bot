@@ -81,10 +81,10 @@ _____________ Многочлены___________________
 51. Задача о нахождении многочлена, который имеет те же корни, что и
 исходный многочлен, но его корни – простые.'''
 
-vk_session = vk_api.VkApi(token="b8de20df2f74e9f6e8ebddbc800f88b9290ffeac55a93482bedb63ed5eda79ffd41e8d7677b57b1bda967")
+vk_session = vk_api.VkApi(token="05128f85ead375f22797a6becd5c6dcf089a0fe8b66def904b9ed8166c471f1c51fbb95582ba30d89501f")
 vk = vk_session.get_api()
 dangerous_point = False
-longpoll = VkBotLongPoll(vk_session, "190612884")#190612884 - test ; 190285544 - working
+longpoll = VkBotLongPoll(vk_session, "190285544")#190612884 - test ; 190285544 - working
 for event in longpoll.listen():
     #print(event)
     if event.type == VkBotEventType.MESSAGE_NEW:
