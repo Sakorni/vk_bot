@@ -1,16 +1,28 @@
 import vk_api
 from vk_api.utils import get_random_id
 from vk_api.bot_longpoll import VkBotLongPoll, VkBotEventType
-def check(t,d):#t - text, d - dictionary
+
+
+def check(t, d):  # t - text, d - dictionary
     return any([word in t.lower() for word in d])
+
+
+def getword(t, d):
+    for word in d:
+        if word in t.lower():
+            return word.title()
+
+
 mayhem = ['пиздец', 'беспредел']
 integrali = ['папей интегралов']
 agression = ['агрессия']
 froggy = ['жаб']
-language = ['лангуаже','лангуаге']
+language = ['лангуаже', 'лангуаге']
 session = ['сессия', 'экзамен', 'добор', 'пересдача']
-ugay = ['сука я кто','сука, я кто']
+ugay = ['сука я кто', 'сука, я кто']
 proizv = ['папей производных']
+spor = ['о чем спор?', 'о чём спор?', 'если через 10 лет...', 'спор фиита', 'спор на фиите']
+stream = ['чего?', 'вообще не понятно...', 'надо бы запустить стрим...']
 delaetsya = ['делается']
 exam = '''_________Матрицы___________
 1. Матрица, понятие матрицы.
@@ -65,7 +77,7 @@ _____________ Многочлены___________________
 доказательством).
 40. Теорема Безу и следствие из неё.
 41. Кратность корня (определение).
-42. Теорема о разложении многочлена по корням над полем комплексных чисел.\n
+42. Теорема о разложении многочлена по корням над полем комплексных чисел.
 43. Многочлены с вещественными коэффициентами. Теорема о комплексных
 корнях такого многочлена.
 44. Разложение многочлена с вещественными коэффициентами на множители
@@ -80,13 +92,12 @@ _____________ Многочлены___________________
 единицу.
 51. Задача о нахождении многочлена, который имеет те же корни, что и
 исходный многочлен, но его корни – простые.'''
-
+blacklist = [355746597]  # Kspich
 vk_session = vk_api.VkApi(token="05128f85ead375f22797a6becd5c6dcf089a0fe8b66def904b9ed8166c471f1c51fbb95582ba30d89501f")
 vk = vk_session.get_api()
 dangerous_point = False
-longpoll = VkBotLongPoll(vk_session, "190285544")#190612884 - test ; 190285544 - working
+longpoll = VkBotLongPoll(vk_session, "190285544")
 for event in longpoll.listen():
-    #print(event)
     if event.type == VkBotEventType.MESSAGE_NEW:
         text = event.obj.text
         print(event)
@@ -98,21 +109,21 @@ for event in longpoll.listen():
                     chat_id=event.chat_id,
                     random_id=get_random_id(),
                     message=exam)
-            if len(text)>1:
-                dangerous_point = text[-1] == '.' and text[-2] != '.'
-            if dangerous_point:
-                vk.messages.send(
-                    chat_id=event.chat_id,
-                    random_id=get_random_id(),
-                    attachment='photo-190285544_457239019')
-                dangerous_point = False
-            else:
-                if check(text, mayhem):
+            if not (event.object.get('from_id') in blacklist):
+                if len(text) > 1:
+                    dangerous_point = text[-1] == '.' and text[-2] != '.'
+                if dangerous_point:
+                    vk.messages.send(
+                        chat_id=event.chat_id,
+                        random_id=get_random_id(),
+                        attachment='photo-190285544_457239019')
+                    dangerous_point = False
+                elif check(text, mayhem):
                     vk.messages.send(
                         chat_id=event.chat_id,
                         random_id=get_random_id(),
                         attachment='photo-190285544_457239018')
-                elif check(text,integrali):
+                elif check(text, integrali):
                     vk.messages.send(
                         chat_id=event.chat_id,
                         random_id=get_random_id(),
@@ -123,7 +134,7 @@ for event in longpoll.listen():
                         random_id=get_random_id(),
                         attachment='photo-190285544_457239020')
                 elif check(text, language):
-                     vk.messages.send(
+                    vk.messages.send(
                         chat_id=event.chat_id,
                         random_id=get_random_id(),
                         attachment='photo-190285544_457239022')
@@ -132,10 +143,12 @@ for event in longpoll.listen():
                         chat_id=event.chat_id,
                         random_id=get_random_id(),
                         attachment='photo-190285544_457239021')
-                elif check (text, session):
+                elif check(text, session):
+
                     vk.messages.send(
                         chat_id=event.chat_id,
                         random_id=get_random_id(),
+                        message='Кто-то сказал "'+getword(text,session)+'"?',
                         attachment='photo-190285544_457239024')
                 elif check(text, ugay):
                     vk.messages.send(
@@ -152,12 +165,24 @@ for event in longpoll.listen():
                         chat_id=event.chat_id,
                         random_id=get_random_id(),
                         attachment='photo-190285544_457239029')
-                elif check (text, delaetsya):
+                elif check(text, delaetsya):
                     vk.messages.send(
                         chat_id=event.chat_id,
                         random_id=get_random_id(),
                         attachment='photo-190285544_457239028')
-                elif 'кошмар?' in text.lower(): #TODO
+                elif check(text, spor):
+                    vk.messages.send(
+                        chat_id=event.chat_id,
+                        random_id=get_random_id(),
+                        message='Ну, как говорится...',
+                        attachment='photo-190285544_457239425')
+                elif check(text, stream):
+                    vk.messages.send(
+                        chat_id=event.chat_id,
+                        random_id=get_random_id(),
+                        message='Как говорит некая Растя:',
+                        attachment='photo-190285544_457239426')
+                elif 'кошмар?' in text.lower():
                     vk.messages.send(
                         chat_id=event.chat_id,
                         random_id=get_random_id(),
