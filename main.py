@@ -104,7 +104,7 @@ def giveanswer(number, chat_id):
 
 
 for event in longpoll.listen():
-    if event.type == VkBotEventType.MESSAGE_NEW:
+    if event.type == VkBotEventType.MESSAGE_NEW and event.obj.text !='':
         text = event.obj.text
         print(event)
         if event.from_chat:
@@ -203,5 +203,5 @@ for event in longpoll.listen():
                         chat_id=event.chat_id,
                         random_id=get_random_id(),
                         message='Кошмар!')
-#TODO Reply Таво    
+#TODO Reply Таво
 #TODO В муте клоун дединсайд
