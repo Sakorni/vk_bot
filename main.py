@@ -97,18 +97,34 @@ vk_session = vk_api.VkApi(token="05128f85ead375f22797a6becd5c6dcf089a0fe8b66def9
 vk = vk_session.get_api()
 dangerous_point = False
 longpoll = VkBotLongPoll(vk_session, "190285544")
+
+
+def giveanswer(number, chat_id):
+    pass
+
+
 for event in longpoll.listen():
     if event.type == VkBotEventType.MESSAGE_NEW:
         text = event.obj.text
         print(event)
-        firstone = True
         if event.from_chat:
-            print(dangerous_point, text)
             if text.lower() == 'программа':
                 vk.messages.send(
                     chat_id=event.chat_id,
                     random_id=get_random_id(),
                     message=exam)
+            if text.lower()[0] == 'ответ':
+                kw = text.lower()[1]
+                if kw == 'матрицы':
+                    pass
+                elif kw == 'определитель':
+                    pass
+                elif kw == 'кч':
+                    pass
+                elif kw == 'многочлены':
+                    pass
+                elif kw.isdigit():
+                    giveanswer(kw, event.chat_id)
             if not (event.object.get('from_id') in blacklist):
                 if len(text) > 1:
                     dangerous_point = text[-1] == '.' and text[-2] != '.'
@@ -148,7 +164,7 @@ for event in longpoll.listen():
                     vk.messages.send(
                         chat_id=event.chat_id,
                         random_id=get_random_id(),
-                        message='Кто-то сказал "'+getword(text,session)+'"?',
+                        message='Кто-то сказал "'+getword(text, session)+'"?',
                         attachment='photo-190285544_457239024')
                 elif check(text, ugay):
                     vk.messages.send(
@@ -187,3 +203,5 @@ for event in longpoll.listen():
                         chat_id=event.chat_id,
                         random_id=get_random_id(),
                         message='Кошмар!')
+#TODO Reply Таво    
+#TODO В муте клоун дединсайд
