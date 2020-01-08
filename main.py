@@ -1,7 +1,7 @@
 import vk_api
 from vk_api.utils import get_random_id
 from vk_api.bot_longpoll import VkBotLongPoll, VkBotEventType
-from random import random as random
+from random import randrange as random
 
 
 def check(t, d):  # t - text, d - dictionary
@@ -107,7 +107,7 @@ def give_answer(number, u_i=None, c_i=None):
         vk.messages.send(
             user_id=u_i,
             random_id=get_random_id(),
-            message=giving[random(0, 4)],
+            message=giving[random(0, 4, 1)],
             attachment='photo-190285544_' + str(num_of_pic + number))
     elif c_i:
         vk.messages.send(
