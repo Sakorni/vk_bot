@@ -131,7 +131,7 @@ def vk_send(mes: str = None, att: str = None) -> None:
         raise Warning("None of 'attachment' or 'message' was specified")
 '''
 
-
+# TODO: def main():
 for event in longpoll.listen():
     if event.type == VkBotEventType.MESSAGE_NEW:
         text = event.obj.text
