@@ -165,7 +165,7 @@ for event in longpoll.listen():
         if event.from_user:
             if text.lower() == 'программа':
                 program(u_i=event.object.from_id)
-            elif len(for_exam) > 2:
+            elif len(for_exam) > 1:
                 exam(for_exam, event.object.from_id)
         elif event.from_chat and \
                 event.object.get('from_id') > 0:
