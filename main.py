@@ -5,11 +5,11 @@ from vk_api.utils import get_random_id
 from vk_api.bot_longpoll import VkBotLongPoll, VkBotEventType
 
 
-def check(t, d):  # t - text, d - dictionary
+def check(t: str, d: dict) -> bool:
     return any([word in t.lower() for word in d])
 
 
-def getword(t, d):
+def getword(t: str, d: dict) -> str:
     for word in d:
         if word in t.lower():
             return word.title()
