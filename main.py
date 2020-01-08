@@ -16,17 +16,19 @@ def getword(t: str, d: dict) -> str:
 
 
 mayhem = ['пиздец', 'беспредел']
-integrali = ['папей интегралов']
+integrals = ['папей интегралов']
 agression = ['агрессия']
 froggy = ['жаб']
 language = ['лангуаже', 'лангуаге']
 session = ['сессия', 'экзамен', 'добор', 'пересдача']
 ugay = ['сука я кто', 'сука, я кто']
-proizv = ['папей производных']
-spor = ['о чем спор?', 'о чём спор?', 'если через 10 лет...', 'спор фиита',
-        'спор на фиите']
+derivatives = ['папей производных']
+dispute = ['о чем спор?', 'о чём спор?', 'если через 10 лет...', 'спор фиита',
+           'спор на фиите']
 stream = ['чего?', 'вообще не понятно...', 'надо бы запустить стрим...']
 delaetsya = ['делается']
+
+# TODO: Возможно использовать русские названия переменных.
 
 exam = '''_________Матрицы___________
 1. Матрица, понятие матрицы.
@@ -146,7 +148,7 @@ for event in longpoll.listen():
                         chat_id=event.chat_id,
                         random_id=get_random_id(),
                         attachment='photo-190285544_457239018')
-                elif check(text, integrali):
+                elif check(text, integrals):
                     vk.messages.send(
                         chat_id=event.chat_id,
                         random_id=get_random_id(),
@@ -178,7 +180,7 @@ for event in longpoll.listen():
                         chat_id=event.chat_id,
                         random_id=get_random_id(),
                         attachment='photo-190285544_457239025')
-                elif check(text, proizv):
+                elif check(text, derivatives):
                     vk.messages.send(
                         chat_id=event.chat_id,
                         random_id=get_random_id(),
@@ -194,7 +196,7 @@ for event in longpoll.listen():
                         chat_id=event.chat_id,
                         random_id=get_random_id(),
                         attachment='photo-190285544_457239028')
-                elif check(text, spor):
+                elif check(text, dispute):
                     vk.messages.send(
                         chat_id=event.chat_id,
                         random_id=get_random_id(),
