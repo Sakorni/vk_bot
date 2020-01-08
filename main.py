@@ -113,6 +113,25 @@ def giveanswer(number: str, chat_id: int) -> None:  # TODO: возвращаем
     pass
 
 
+'''
+# TODO: Можно использовать для упрощения основного кода
+def vk_send(mes: str = None, att: str = None) -> None:
+    """Процедура для отправки сообщений"""
+    if mes and not att:
+        vk.messages.send(
+            chat_id=event.chat_id,
+            random_id=get_random_id(),
+            message=mes)
+    elif att and not mes:
+        vk.messages.send(
+            chat_id=event.chat_id,
+            random_id=get_random_id(),
+            attachment=att)
+    else:
+        raise Warning("None of 'attachment' or 'message' was specified")
+'''
+
+
 for event in longpoll.listen():
     if event.type == VkBotEventType.MESSAGE_NEW:
         text = event.obj.text
@@ -134,7 +153,8 @@ for event in longpoll.listen():
                 elif kw == 'многочлены':
                     pass
                 elif kw.isdigit():
-                    giveanswer(kw, event.chat_id) # TODO: giveanswer implementation
+                    giveanswer(kw, event.chat_id)
+                    # TODO: giveanswer implementation
             if not (event.object.get('from_id') in blacklist):
                 if len(text) > 1:
                     dangerous_point = text[-1] == '.' and text[-2] != '.'
