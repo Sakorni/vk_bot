@@ -99,55 +99,60 @@ dangerous_point = False
 longpoll = VkBotLongPoll(vk_session, "190285544")
 
 
-def giveanswer(number, chat_id):
-    pass
+def giveanswer(number, c_i):
+    num_of_pic = 457239429
+    vk.messages.send(
+        chat_id=c_i,
+        random_id=get_random_id(),
+        attachment='photo-190285544_'+str(num_of_pic+number))
 
 
 for event in longpoll.listen():
-    if event.type == VkBotEventType.MESSAGE_NEW and event.obj.text !='':
+    if event.type == VkBotEventType.MESSAGE_NEW and\
+            event.obj.text !='':
         text = event.obj.text
-        if event.from_chat and event.object.get('from_id') > 0:
+        print(event)
+        if event.from_chat and\
+                event.object.get('from_id') > 0:
             if text.lower() == 'программа':
                 vk.messages.send(
                     chat_id=event.chat_id,
                     random_id=get_random_id(),
-                    message=exam)
-            if text.lower()[0] == 'ответ':
-                kw = text.lower()[1]
-                if kw == 'матрицы':
-                    pass
-                elif kw == 'определитель':
-                    pass
-                elif kw == 'кч':
-                    pass
-                elif kw == 'многочлены':
-                    pass
-                elif kw.isdigit():
-                    giveanswer(kw, event.chat_id)
-            if not (event.object.get('from_id') in blacklist):
-                if len(text) > 1:
-                    dangerous_point = text[-1] == '.' and text[-2] != '.'
-                    exclamation = event.object.get('from_id') == 27053186 \
-                            and text[-1]=='!'
-                if dangerous_point:
-                    if event.object.get('from_id') == 27053186:
-                        vk.messages.send(
-                            chat_id=event.chat_id,
-                            random_id=get_random_id(),
-                            message='Gotcha, bitch!',
-                            attachment='photo-190285544_457239019')
-                    else:
-                        vk.messages.send(
-                            chat_id=event.chat_id,
-                            random_id=get_random_id(),
-                            attachment='photo-190285544_457239019')
-                elif exclamation:
+                    attachment=['photo-190285544_457239428', 'photo-190285544_457239429'])
+            if text.lower().split()[0] == 'ответ' and\
+                    len(text.lower().split())>1:
+                kw = text.split()[1]
+                if kw.isdigit() and (0 < int(kw) < 52):
+                    giveanswer(int(kw), event.chat_id)
+                else:
                     vk.messages.send(
                         chat_id=event.chat_id,
                         random_id=get_random_id(),
-                        message='И ведь не соврал...',
-                        attachment='photo-190285544_457239427')
-                    dangerous_point = False
+                        message='Бля, ты обосрался')
+            if not (event.object.get('from_id') in blacklist):
+                if len(text) > 1:
+                    dangerous_point = text[-1] == '.' and text[-2] != '.'
+                    exclamation = event.object.get('from_id') == 27053186 and\
+                        text[-1] == '!'
+                    if dangerous_point:
+                        if event.object.get('from_id') == 27053186:
+                            vk.messages.send(
+                                chat_id=event.chat_id,
+                                random_id=get_random_id(),
+                                message='Gotcha, bitch!',
+                                attachment='photo-190285544_457239019')
+                        else:
+                            vk.messages.send(
+                                chat_id=event.chat_id,
+                                random_id=get_random_id(),
+                                attachment='photo-190285544_457239019')
+                            dangerous_point = False
+                    elif exclamation:
+                        vk.messages.send(
+                            chat_id=event.chat_id,
+                            random_id=get_random_id(),
+                            message='И ведь не соврал...',
+                            attachment='photo-190285544_457239427')
                 elif check(text, mayhem):
                     vk.messages.send(
                         chat_id=event.chat_id,
