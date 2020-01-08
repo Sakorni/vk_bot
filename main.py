@@ -1,33 +1,39 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 import vk_api
 from vk_api.utils import get_random_id
 from vk_api.bot_longpoll import VkBotLongPoll, VkBotEventType
 
 
-def check(t, d):  # t - text, d - dictionary
+def check(t: str, d: dict) -> bool:
     return any([word in t.lower() for word in d])
 
 
-def getword(t, d):
+def getword(t: str, d: dict) -> str:
     for word in d:
         if word in t.lower():
             return word.title()
 
 
 mayhem = ['пиздец', 'беспредел']
-integrali = ['папей интегралов']
+integrals = ['папей интегралов']
 agression = ['агрессия']
 froggy = ['жаб']
 language = ['лангуаже', 'лангуаге']
 session = ['сессия', 'экзамен', 'добор', 'пересдача']
 ugay = ['сука я кто', 'сука, я кто']
-proizv = ['папей производных']
-spor = ['о чем спор?', 'о чём спор?', 'если через 10 лет...', 'спор фиита', 'спор на фиите']
+derivatives = ['папей производных']
+dispute = ['о чем спор?', 'о чём спор?', 'если через 10 лет...', 'спор фиита',
+           'спор на фиите']
 stream = ['чего?', 'вообще не понятно...', 'надо бы запустить стрим...']
 delaetsya = ['делается']
+
+# TODO: Возможно использовать русские названия переменных.
+
 exam = '''_________Матрицы___________
 1. Матрица, понятие матрицы.
 2. Виды матриц: квадратные, прямоугольные, скалярные, диагональные.
-3. Операции над матрицами: умножение матрицы на число, сложение матриц, 
+3. Операции над матрицами: умножение матрицы на число, сложение матриц,
 умножение матриц и их свойства.
 4. Транспонированная матрица. Взаимодействие транспонирования с
 операциями.
@@ -92,6 +98,7 @@ _____________ Многочлены___________________
 единицу.
 51. Задача о нахождении многочлена, который имеет те же корни, что и
 исходный многочлен, но его корни – простые.'''
+
 blacklist = [355746597]  # Kspich
 vk_session = vk_api.VkApi(token="insert your token here")
 vk = vk_session.get_api()
@@ -99,10 +106,32 @@ dangerous_point = False
 longpoll = VkBotLongPoll(vk_session, "190612884")
 
 
-def giveanswer(number, chat_id):  #  Дает ответ на вопрос через скидывание картинки №ссылка на пред. пикчу + номер вопроса
+def giveanswer(number: str, chat_id: int) -> None:  # TODO: возвращаемый тип
+    """Дает ответ на вопрос через скидывание картинки № ссылка на предидущую
+       пикчу + номер вопроса"""
+    # TODO: implementation
     pass
 
 
+'''
+# TODO: Можно использовать для упрощения основного кода
+def vk_send(mes: str = None, att: str = None) -> None:
+    """Процедура для отправки сообщений"""
+    if mes and not att:
+        vk.messages.send(
+            chat_id=event.chat_id,
+            random_id=get_random_id(),
+            message=mes)
+    elif att and not mes:
+        vk.messages.send(
+            chat_id=event.chat_id,
+            random_id=get_random_id(),
+            attachment=att)
+    else:
+        raise Warning("None of 'attachment' or 'message' was specified")
+'''
+
+# TODO: def main():
 for event in longpoll.listen():
     if event.type == VkBotEventType.MESSAGE_NEW:
         text = event.obj.text
@@ -125,6 +154,7 @@ for event in longpoll.listen():
                     pass
                 elif kw.isdigit():
                     giveanswer(kw, event.chat_id)
+                    # TODO: giveanswer implementation
             if not (event.object.get('from_id') in blacklist):
                 if len(text) > 1:
                     dangerous_point = text[-1] == '.' and text[-2] != '.'
@@ -139,7 +169,7 @@ for event in longpoll.listen():
                         chat_id=event.chat_id,
                         random_id=get_random_id(),
                         attachment='photo-190285544_457239018')
-                elif check(text, integrali):
+                elif check(text, integrals):
                     vk.messages.send(
                         chat_id=event.chat_id,
                         random_id=get_random_id(),
@@ -164,19 +194,20 @@ for event in longpoll.listen():
                     vk.messages.send(
                         chat_id=event.chat_id,
                         random_id=get_random_id(),
-                        message='Кто-то сказал "'+getword(text, session)+'"?',
+                        message=f'Кто-то сказал "{getword(text, session)}"?',
                         attachment='photo-190285544_457239024')
                 elif check(text, ugay):
                     vk.messages.send(
                         chat_id=event.chat_id,
                         random_id=get_random_id(),
                         attachment='photo-190285544_457239025')
-                elif check(text, proizv):
+                elif check(text, derivatives):
                     vk.messages.send(
                         chat_id=event.chat_id,
                         random_id=get_random_id(),
                         attachment='photo-190285544_457239023')
-                elif 'помидор' in text.lower() and event.object.get('from_id') == 273576556:
+                elif 'помидор' in text.lower() and \
+                     event.object.get('from_id') == 273576556:
                     vk.messages.send(
                         chat_id=event.chat_id,
                         random_id=get_random_id(),
@@ -186,7 +217,7 @@ for event in longpoll.listen():
                         chat_id=event.chat_id,
                         random_id=get_random_id(),
                         attachment='photo-190285544_457239028')
-                elif check(text, spor):
+                elif check(text, dispute):
                     vk.messages.send(
                         chat_id=event.chat_id,
                         random_id=get_random_id(),
@@ -203,5 +234,5 @@ for event in longpoll.listen():
                         chat_id=event.chat_id,
                         random_id=get_random_id(),
                         message='Кошмар!')
-#TODO Reply Таво    
-#TODO В муте клоун дединсайд
+# TODO: Reply Таво
+# TODO: В муте клоун дединсайд
