@@ -107,7 +107,7 @@ def give_answer(number, u_i=None, c_i=None):
         vk.messages.send(
             user_id=u_i,
             random_id=get_random_id(),
-            message=giving[random(0, 4, 1)],
+                message=giving[random(0, 3, 1)],
             attachment='photo-190285544_' + str(num_of_pic + number))
     elif c_i:
         vk.messages.send(
