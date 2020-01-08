@@ -113,7 +113,6 @@ def giveanswer(number: str, chat_id: int) -> None:  # TODO: возвращаем
     pass
 
 
-'''
 # TODO: Можно использовать для упрощения основного кода
 def vk_send(mes: str = None, att: str = None) -> None:
     """Процедура для отправки сообщений"""
@@ -127,9 +126,15 @@ def vk_send(mes: str = None, att: str = None) -> None:
             chat_id=event.chat_id,
             random_id=get_random_id(),
             attachment=att)
+    elif att and mes:
+        vk.messages.send(
+            chat_id=event.chat_id,
+            random_id=get_random_id(),
+            message=mes,
+            attachment=att)
     else:
         raise Warning("None of 'attachment' or 'message' was specified")
-'''
+
 
 # TODO: def main():
 for event in longpoll.listen():
