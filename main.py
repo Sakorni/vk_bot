@@ -130,10 +130,17 @@ for event in longpoll.listen():
                     exclamation = event.object.get('from_id') == 27053186 \
                             and text[-1]=='!'
                 if dangerous_point:
-                    vk.messages.send(
-                        chat_id=event.chat_id,
-                        random_id=get_random_id(),
-                        attachment='photo-190285544_457239019')
+                    if event.object.get('from_id') == 27053186:
+                        vk.messages.send(
+                            chat_id=event.chat_id,
+                            random_id=get_random_id(),
+                            message='Gotcha, bitch!',
+                            attachment='photo-190285544_457239019')
+                    else:
+                        vk.messages.send(
+                            chat_id=event.chat_id,
+                            random_id=get_random_id(),
+                            attachment='photo-190285544_457239019')
                 elif exclamation:
                     vk.messages.send(
                         chat_id=event.chat_id,
