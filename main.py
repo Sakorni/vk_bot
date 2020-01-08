@@ -128,11 +128,18 @@ for event in longpoll.listen():
             if not (event.object.get('from_id') in blacklist):
                 if len(text) > 1:
                     dangerous_point = text[-1] == '.' and text[-2] != '.'
+                    voskl = event.object.get('from_id') == 27053186 and text[-1]=='!'
                 if dangerous_point:
                     vk.messages.send(
                         chat_id=event.chat_id,
                         random_id=get_random_id(),
                         attachment='photo-190285544_457239019')
+                elif voskl:
+                    vk.messages.send(
+                        chat_id=event.chat_id,
+                        random_id=get_random_id(),
+                        message='И ведь не соврал...',
+                        attachment='photo-190285544_457239427')
                     dangerous_point = False
                 elif check(text, mayhem):
                     vk.messages.send(
