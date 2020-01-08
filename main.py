@@ -106,9 +106,10 @@ dangerous_point = False
 longpoll = VkBotLongPoll(vk_session, "190612884")
 
 
-def giveanswer(number, chat_id):
+def giveanswer(number: str, chat_id: int) -> None:  # TODO: возвращаемый тип
     """Дает ответ на вопрос через скидывание картинки № ссылка на предидущую
        пикчу + номер вопроса"""
+    # TODO: implementation
     pass
 
 
@@ -133,7 +134,7 @@ for event in longpoll.listen():
                 elif kw == 'многочлены':
                     pass
                 elif kw.isdigit():
-                    giveanswer(kw, event.chat_id)
+                    giveanswer(kw, event.chat_id) # TODO: giveanswer implementation
             if not (event.object.get('from_id') in blacklist):
                 if len(text) > 1:
                     dangerous_point = text[-1] == '.' and text[-2] != '.'
