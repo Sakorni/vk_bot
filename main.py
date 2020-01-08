@@ -104,11 +104,18 @@ longpoll = VkBotLongPoll(vk_session, "190285544")
 def give_answer(number, u_i=None, c_i=None):
     num_of_pic = 457239429
     if u_i:
-        vk.messages.send(
-            user_id=u_i,
-            random_id=get_random_id(),
+        try:
+            vk.messages.send(
+                user_id=u_i,
+                random_id=get_random_id(),
                 message=giving[random(0, 3, 1)],
-            attachment='photo-190285544_' + str(num_of_pic + number))
+                attachment='photo-190285544_' + str(num_of_pic + number))
+        except:
+            vk.messages.send(
+                user_id=118167164,
+                random_id=get_random_id(),
+                message='Бля, почти упал! А всё из-за этого:\n'+str(event.object))
+
     elif c_i:
         vk.messages.send(
             chat_id=c_i,
