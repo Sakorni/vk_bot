@@ -23,13 +23,15 @@ language = ['лангуаже', 'лангуаге']
 session = ['сессия', 'экзамен', 'добор', 'пересдача']
 ugay = ['сука я кто', 'сука, я кто']
 proizv = ['папей производных']
-spor = ['о чем спор?', 'о чём спор?', 'если через 10 лет...', 'спор фиита', 'спор на фиите']
+spor = ['о чем спор?', 'о чём спор?', 'если через 10 лет...', 'спор фиита',
+        'спор на фиите']
 stream = ['чего?', 'вообще не понятно...', 'надо бы запустить стрим...']
 delaetsya = ['делается']
+
 exam = '''_________Матрицы___________
 1. Матрица, понятие матрицы.
 2. Виды матриц: квадратные, прямоугольные, скалярные, диагональные.
-3. Операции над матрицами: умножение матрицы на число, сложение матриц, 
+3. Операции над матрицами: умножение матрицы на число, сложение матриц,
 умножение матриц и их свойства.
 4. Транспонированная матрица. Взаимодействие транспонирования с
 операциями.
@@ -94,6 +96,7 @@ _____________ Многочлены___________________
 единицу.
 51. Задача о нахождении многочлена, который имеет те же корни, что и
 исходный многочлен, но его корни – простые.'''
+
 blacklist = [355746597]  # Kspich
 vk_session = vk_api.VkApi(token="insert your token here")
 vk = vk_session.get_api()
@@ -101,7 +104,9 @@ dangerous_point = False
 longpoll = VkBotLongPoll(vk_session, "190612884")
 
 
-def giveanswer(number, chat_id):  #  Дает ответ на вопрос через скидывание картинки №ссылка на пред. пикчу + номер вопроса
+def giveanswer(number, chat_id):
+    """Дает ответ на вопрос через скидывание картинки № ссылка на предидущую
+       пикчу + номер вопроса"""
     pass
 
 
@@ -166,7 +171,7 @@ for event in longpoll.listen():
                     vk.messages.send(
                         chat_id=event.chat_id,
                         random_id=get_random_id(),
-                        message='Кто-то сказал "'+getword(text, session)+'"?',
+                        message=f'Кто-то сказал "{getword(text, session)}"?',
                         attachment='photo-190285544_457239024')
                 elif check(text, ugay):
                     vk.messages.send(
@@ -178,7 +183,8 @@ for event in longpoll.listen():
                         chat_id=event.chat_id,
                         random_id=get_random_id(),
                         attachment='photo-190285544_457239023')
-                elif 'помидор' in text.lower() and event.object.get('from_id') == 273576556:
+                elif 'помидор' in text.lower() and \
+                     event.object.get('from_id') == 273576556:
                     vk.messages.send(
                         chat_id=event.chat_id,
                         random_id=get_random_id(),
@@ -205,5 +211,5 @@ for event in longpoll.listen():
                         chat_id=event.chat_id,
                         random_id=get_random_id(),
                         message='Кошмар!')
-#TODO Reply Таво    
-#TODO В муте клоун дединсайд
+# TODO: Reply Таво
+# TODO: В муте клоун дединсайд
