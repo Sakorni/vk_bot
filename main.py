@@ -92,7 +92,7 @@ _____________ Многочлены___________________
 единицу.
 51. Задача о нахождении многочлена, который имеет те же корни, что и
 исходный многочлен, но его корни – простые.'''
-blacklist = [355746597]  # Kspich
+blacklist = [355746597, -170393012]  # Kspich, Kai
 vk_session = vk_api.VkApi(token="05128f85ead375f22797a6becd5c6dcf089a0fe8b66def904b9ed8166c471f1c51fbb95582ba30d89501f")
 vk = vk_session.get_api()
 dangerous_point = False
@@ -106,8 +106,7 @@ def giveanswer(number, chat_id):
 for event in longpoll.listen():
     if event.type == VkBotEventType.MESSAGE_NEW and event.obj.text !='':
         text = event.obj.text
-        print(event)
-        if event.from_chat:
+        if event.from_chat and event.object.get('from_id') > 0:
             if text.lower() == 'программа':
                 vk.messages.send(
                     chat_id=event.chat_id,
@@ -128,13 +127,14 @@ for event in longpoll.listen():
             if not (event.object.get('from_id') in blacklist):
                 if len(text) > 1:
                     dangerous_point = text[-1] == '.' and text[-2] != '.'
-                    voskl = event.object.get('from_id') == 27053186 and text[-1]=='!'
+                    exclamation = event.object.get('from_id') == 27053186 \
+                            and text[-1]=='!'
                 if dangerous_point:
                     vk.messages.send(
                         chat_id=event.chat_id,
                         random_id=get_random_id(),
                         attachment='photo-190285544_457239019')
-                elif voskl:
+                elif exclamation:
                     vk.messages.send(
                         chat_id=event.chat_id,
                         random_id=get_random_id(),
