@@ -6,17 +6,6 @@ from vk_api.bot_longpoll import VkBotLongPoll, VkBotEventType
 from random import randrange as random
 from keys import Testkey
 
-
-def check(t: str, d: dict) -> bool:
-    return any([word in t.lower() for word in d])
-
-
-def getword(t: str, d: dict) -> str:
-    for word in d:
-        if word in t.lower():
-            return word.title()
-
-
 mayhem = ['пиздец', 'беспредел']
 integrals = ['папей интегралов']
 agression = ['агрессия']
@@ -36,7 +25,18 @@ blacklist = [355746597, -170393012]  # Kspich, Kai
 vk_session = vk_api.VkApi(token=Testkey)
 vk = vk_session.get_api()
 dangerous_point = False
-longpoll = VkBotLongPoll(vk_session, '190285544')
+longpoll = VkBotLongPoll(vk_session, '190612884')
+
+
+
+def check(t: str, d: dict) -> bool:
+    return any([word in t.lower() for word in d])
+
+
+def getword(t: str, d: dict) -> str:
+    for word in d:
+        if word in t.lower():
+            return word.title()
 
 
 def give_answer(number, u_i=None, c_i=None):
