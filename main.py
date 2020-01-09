@@ -90,6 +90,15 @@ def program(c_i=None, u_i=None):
                         'photo-190285544_457239429'])
 
 
+def vk_send(event, mes: str = None, att: str = None) -> None:
+    """Процедура отправки сообщений"""
+    vk.messages.send(
+            chat_id=event.chat_id,
+            random_id=get_random_id(),
+            message=mes,
+            attachment=att)
+
+
 for event in longpoll.listen():
     if event.type == VkBotEventType.MESSAGE_NEW and \
             event.obj.text != '':
