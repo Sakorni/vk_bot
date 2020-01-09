@@ -4,7 +4,7 @@ import vk_api
 from vk_api.utils import get_random_id
 from vk_api.bot_longpoll import VkBotLongPoll, VkBotEventType
 from random import randrange as random
-from keys import Testkey
+from keys import WorkingKey
 
 mayhem = ['пиздец', 'беспредел']
 integrals = ['папей интегралов']
