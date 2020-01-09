@@ -4,7 +4,7 @@ import vk_api
 from vk_api.utils import get_random_id
 from vk_api.bot_longpoll import VkBotLongPoll, VkBotEventType
 from random import randrange as random
-from keys import WorkingKey
+from keys import workingKey
 
 mayhem = ['пиздец', 'беспредел']
 integrals = ['папей интегралов']
@@ -22,7 +22,7 @@ delaetsya = ['делается']
 
 
 blacklist = [355746597]  # Kspich, Kai
-vk_session = vk_api.VkApi(token=Workingkey)
+vk_session = vk_api.VkApi(token=workingKey)
 vk = vk_session.get_api()
 dangerous_point = False
 longpoll = VkBotLongPoll(vk_session, '190285544')
