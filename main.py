@@ -22,10 +22,10 @@ delaetsya = ['делается']
 
 
 blacklist = [355746597]  # Kspich, Kai
-vk_session = vk_api.VkApi(token=Testkey)
+vk_session = vk_api.VkApi(token=Workingkey)
 vk = vk_session.get_api()
 dangerous_point = False
-longpoll = VkBotLongPoll(vk_session, '190612884')
+longpoll = VkBotLongPoll(vk_session, '190285544')
 
 
 
