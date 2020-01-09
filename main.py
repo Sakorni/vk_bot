@@ -21,7 +21,7 @@ stream = ['каво?', 'вообще не понятно...', 'надо бы з�
 delaetsya = ['делается']
 
 
-blacklist = [355746597, -170393012]  # Kspich, Kai
+blacklist = [355746597]  # Kspich, Kai
 vk_session = vk_api.VkApi(token=Testkey)
 vk = vk_session.get_api()
 dangerous_point = False
