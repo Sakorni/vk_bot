@@ -4,7 +4,7 @@ import vk_api
 from vk_api.utils import get_random_id
 from vk_api.bot_longpoll import VkBotLongPoll, VkBotEventType
 from random import randrange as random
-from keys import Testkey as Key
+from keys import workingKey as Key
 
 mayhem = ['пиздец', 'беспредел']
 integrals = ['папей интегралов']
@@ -25,7 +25,7 @@ vk_session = vk_api.VkApi(token=Key)
 vk = vk_session.get_api()
 exclamation = False
 dangerous_point = False
-longpoll = VkBotLongPoll(vk_session, '190612884')
+longpoll = VkBotLongPoll(vk_session, '190285544')
 
 
 def vk_send(user_id=None, chat_id=None, message: str = None, attachment=None) -> None:
