@@ -20,8 +20,7 @@ dispute = ['о чем спор?', 'о чём спор?', 'если через 10
 stream = ['каво?', 'вообще не понятно...', 'надо бы запустить стрим...']
 delaetsya = ['делается']
 
-
-blacklist = [355746597]  # Kspich, Kai
+blacklist = [355746597]  # Kspich
 vk_session = vk_api.VkApi(token=workingKey)
 vk = vk_session.get_api()
 dangerous_point = False
