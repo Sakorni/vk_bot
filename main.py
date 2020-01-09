@@ -89,9 +89,10 @@ def program(c_i=None, u_i=None):
                         'photo-190285544_457239429'])
 
 
-def vk_send(chat_id=None, mes: str = None, att: str = None) -> None:
+def vk_send(user_id=None, chat_id=None, mes: str = None, att: str = None) -> None:
     """Процедура отправки сообщений"""
     vk.messages.send(
+            user_id=user_id,
             chat_id=chat_id,
             random_id=get_random_id(),
             message=mes,
@@ -106,7 +107,7 @@ for event in longpoll.listen():
         if event.from_user:
             if text.lower() == 'программа':
                 program(u_i=event.object.from_id)
-            elif len(for_exam) > 2:
+            elif len(for_exam) > 1:
                 exam(for_exam, event.object.from_id)
         elif event.from_chat and \
                 event.object.get('from_id') > 0:
