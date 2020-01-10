@@ -28,7 +28,7 @@ dangerous_point = False
 longpoll = VkBotLongPoll(vk_session, '190285544')
 
 
-def report(message: str) -> None:
+def report(message: str):
     """Процедура репорта об ошибке"""
     vk.messages.send(
         user_id=118167164,
@@ -36,7 +36,7 @@ def report(message: str) -> None:
         message=message)
 
 
-def vk_send(is_user=True, id=None, message: str = None, attachment=None) -> None:
+def vk_send(is_user: bool = True, id: int = None, message: str = None, attachment = None):
     """Процедура отправки сообщений"""
     try:
         if is_user:
@@ -52,19 +52,19 @@ def vk_send(is_user=True, id=None, message: str = None, attachment=None) -> None
                 message=message,
                 attachment=attachment)
     except:
-        report(message='Чуть не умер!\n'+str(event.object))
+        report(message='Чуть не умер!\n' + str(event.object))
 
-def check(t: str, d: dict) -> bool:
+def check(t: str, d: 'list[str]') -> bool:
     return any([word in t.lower() for word in d])
 
 
-def getword(t: str, d: dict) -> str:
+def getword(t: str, d: 'list[str]'):
     for word in d:
         if word in t.lower():
             return word.title()
 
 
-def give_answer(number, u_i=None, c_i=None):
+def give_answer(number: int, u_i: int = None, c_i: int = None):
     num_of_pic = 457239429
     if u_i:
         vk_send(
@@ -78,7 +78,7 @@ def give_answer(number, u_i=None, c_i=None):
             attachment='photo-190285544_' + str(num_of_pic + number))
 
 
-def exam(msg, u_i=None, c_i=None):
+def exam(msg: 'list[str]', u_i: int = None, c_i: int = None):
     if msg[0] == 'ответ':
         condition = msg[1].isdigit() and (0 < int(msg[1]) < 52)
         if condition:
