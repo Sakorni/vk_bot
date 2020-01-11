@@ -19,7 +19,8 @@ dispute = ['о чем спор?', 'о чём спор?', 'если через 10
            'спор на фиите']
 stream = ['каво?', 'вообще не понятно...', 'надо бы запустить стрим...']
 delaetsya = ['делается']
-exam_program = ['photo-190285544_457239428', 'photo-190285544_457239429']  # Программа экзамена
+exam_program = ['photo-190285544_457239428', 'photo-190285544_457239429']
+# Программа экзамена
 blacklist = [355746597]  # Kspich
 vk_session = vk_api.VkApi(token=Key)
 vk = vk_session.get_api()
@@ -33,10 +34,10 @@ def report(message: str):
     vk.messages.send(
         user_id=118167164,
         random_id=get_random_id(),
-        message=message)
+        message='Бля, чуть не упал, а всё из-за этого!\n' + message)
 
 
-def vk_send(is_user: bool = True, id: int = None, message: str = None, attachment = None):
+def vk_send(is_user=True, id=None, message: str = None, attachment=None):
     """Процедура отправки сообщений"""
     try:
         if is_user:
@@ -51,20 +52,21 @@ def vk_send(is_user: bool = True, id: int = None, message: str = None, attachmen
                 random_id=get_random_id(),
                 message=message,
                 attachment=attachment)
-    except:
-        report(message='Чуть не умер!\n' + str(event.object))
+    except Exception as err:
+        vk_send(id=118167164, message=f'Чуть не умер!\n{event.object}\n{err}')
 
-def check(t: str, d: 'list[str]') -> bool:
+
+def check(t: str, d: list) -> bool:
     return any([word in t.lower() for word in d])
 
 
-def getword(t: str, d: 'list[str]'):
+def getword(t: str, d: list):
     for word in d:
         if word in t.lower():
             return word.title()
 
 
-def give_answer(number: int, u_i: int = None, c_i: int = None):
+def give_answer(number, u_i=None, c_i=None):
     num_of_pic = 457239429
     if u_i:
         vk_send(
@@ -78,7 +80,7 @@ def give_answer(number: int, u_i: int = None, c_i: int = None):
             attachment='photo-190285544_' + str(num_of_pic + number))
 
 
-def exam(msg: 'list[str]', u_i: int = None, c_i: int = None):
+def exam(msg, u_i=None, c_i=None):
     if msg[0] == 'ответ':
         condition = msg[1].isdigit() and (0 < int(msg[1]) < 52)
         if condition:
@@ -112,7 +114,8 @@ for event in longpoll.listen():
             id = event.chat_id
         if text.lower() == 'программа':
             vk_send(is_user=is_user, id=id, attachment=exam_program)
-        elif len(for_exam) > 1 and is_user:  #  TODO доделать нормальную реализацию, поиграться с функцией exam
+        elif len(for_exam) > 1 and is_user:
+            # TODO: доделать нормальную реализацию, поиграться с функцией exam
             exam(for_exam, event.object.from_id)
         if len(for_exam) > 1 and for_exam[0] == 'ответ':
             if len(for_exam) == 3 and for_exam[2] == 'лс':
@@ -122,7 +125,7 @@ for event in longpoll.listen():
         if not (event.object.get('from_id') in blacklist):
             dangerous_point = text[-1] == '.' and text[-2] != '.'
             exclamation = event.object.get('from_id') == 27053186 and \
-                          text[-1] == '!'
+                text[-1] == '!'
             if dangerous_point:
                 if event.object.get('from_id') == 27053186:
                     vk_send(
