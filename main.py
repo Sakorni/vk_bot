@@ -56,11 +56,11 @@ def vk_send(is_user=True, id=None, message: str = None, attachment=None):
         vk_send(id=118167164, message=f'Чуть не умер!\n{event.object}\n{err}')
 
 
-def check(t: str, d: list) -> bool:
+def check(t: str, d: 'list[str]') -> bool:
     return any([word in t.lower() for word in d])
 
 
-def getword(t: str, d: list):
+def getword(t: str, d: 'list[str]'):
     for word in d:
         if word in t.lower():
             return word.title()
