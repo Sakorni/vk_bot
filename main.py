@@ -4,7 +4,7 @@ import vk_api
 from vk_api.utils import get_random_id
 from vk_api.bot_longpoll import VkBotLongPoll, VkBotEventType
 from random import randint as random
-from keys import Test as Key
+from keys import Real as Key
 
 mayhem = ['пиздец', 'беспредел']
 integrals = ['папей интегралов']
@@ -33,7 +33,7 @@ vk_session = vk_api.VkApi(token=Key)
 vk = vk_session.get_api()
 exclamation = False
 dangerous_point = False
-longpoll = VkBotLongPoll(vk_session, '190612884')
+longpoll = VkBotLongPoll(vk_session, '190285544')
 
 
 def report(message: str) -> None:
@@ -222,7 +222,7 @@ for event in longpoll.listen():
                         id=id,
                         message=f'*id{event.object.from_id}({cute_word[random(0, len(cute_word)-1)]})...\n {yes_or_not[yes_no][answer]}'
                 )
-
+# TODO: Подумать о переносе кейвордов в отдельный файл...
 # TODO: В муте клоун дединсайд
 # TODO: Попробовать кейворды и их фотографии запихнуть в словарь, это сократит код
 # TODO: Придумать реализацию с БД и добавлением туда персональных кейвордов пользователей
