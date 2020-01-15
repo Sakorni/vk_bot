@@ -27,7 +27,6 @@ stream = ['каво?', 'вообще не понятно...', 'надо бы з�
 delaetsya = ['это делается', 'это и делается']
 exam_program = ['photo-190285544_457239428', 'photo-190285544_457239429']
 am_i_right = ['так ведь?', 'правильно говорю?', 'верно понял?', 'правильно понял?', 'получается?', 'двачер?']
-# Программа экзамена
 blacklist = [355746597]  # Kspich
 vk_session = vk_api.VkApi(token=Key)
 vk = vk_session.get_api()
@@ -220,7 +219,7 @@ for event in longpoll.listen():
                     vk_send(
                         is_user=is_user,
                         id=id,
-                        message=f'*id{event.object.from_id}({cute_word[random(0, len(cute_word)-1)]})...\n {yes_or_not[yes_no][answer]}'
+                        message=f'*id{event.object.from_id}({cute_word[random(0, len(cute_word)-1)]})...\n{yes_or_not[yes_no][answer]}'
                 )
 # TODO: Подумать о переносе кейвордов в отдельный файл...
 # TODO: В муте клоун дединсайд
