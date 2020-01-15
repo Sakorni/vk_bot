@@ -3,33 +3,40 @@
 import vk_api
 from vk_api.utils import get_random_id
 from vk_api.bot_longpoll import VkBotLongPoll, VkBotEventType
-from random import randrange as random
-from keys import Real as Key
+from random import randint as random
+from keys import Test as Key
 
 mayhem = ['пиздец', 'беспредел']
 integrals = ['папей интегралов']
 agression = ['агрессия']
-giving = ['Лови!', 'Держи!', 'Рад помочь!', 'А вот и ваш ответ!']
-froggy = ['жаб']
+yes_or_not = [['К о н е ч н о !', 'Абсолютно верно!', 'В точку!', 'Есессна!', 'Очевидно!',
+               'Ну... Получается так, да.'],
+              ['Не-а!', 'Н и х у я', 'А вот тут ты ошибаешься...', 'Нет.',
+               'Что за херню я только что лицезрел? Чистейший бред от и до!',
+               'Нет. Прошу, забудь как писать, чтобы никто больше не видел подобное.']]
+cute_word = ['Милашка моя', 'Зайка моя', 'Великоуважаемый мешок костей и плоти',  'Лапочка ты наша',
+             'Котя']
+froggy = ['жаба', 'жабу']
 language = ['лангуаже', 'лангуаге']
-session = ['сессия', 'экзамен', 'добор', 'пересдача']
-ugay = ['сука я кто', 'сука, я кто', 'хто я?']
+session = ['добор', 'пересдача']
+ugay = ['сука я кто', 'сука, я кто', 'хто я']
 derivatives = ['папей производных']
 dispute = ['о чем спор?', 'о чём спор?', 'если через 10 лет...', 'спор фиита',
            'спор на фиите']
 stream = ['каво?', 'вообще не понятно...', 'надо бы запустить стрим...']
-delaetsya = ['делается']
+delaetsya = ['это делается', 'это и делается']
 exam_program = ['photo-190285544_457239428', 'photo-190285544_457239429']
+am_i_right = ['так ведь?', 'правильно говорю?', 'верно понял?', 'правильно понял?', 'получается?', 'двачер?']
 # Программа экзамена
 blacklist = [355746597]  # Kspich
 vk_session = vk_api.VkApi(token=Key)
 vk = vk_session.get_api()
 exclamation = False
 dangerous_point = False
-longpoll = VkBotLongPoll(vk_session, '190285544')
+longpoll = VkBotLongPoll(vk_session, '190612884')
 
 
-def report(message: str):
+def report(message: str) -> None:
     """Процедура репорта об ошибке"""
     vk.messages.send(
         user_id=118167164,
@@ -37,35 +44,32 @@ def report(message: str):
         message='Бля, чуть не упал, а всё из-за этого!\n' + message)
 
 
-def vk_send(is_user=True, id=None, message: str = None, attachment=None):
+def vk_send(is_user=True, id=None, message: str = None, attachment=None) -> None:
     """Процедура отправки сообщений"""
-    try:
-        if is_user:
-            vk.messages.send(
-                user_id=id,
-                random_id=get_random_id(),
-                message=message,
-                attachment=attachment)
-        else:
-            vk.messages.send(
-                chat_id=id,
-                random_id=get_random_id(),
-                message=message,
-                attachment=attachment)
-    except Exception as err:
-        vk_send(id=118167164, message=f'Чуть не умер!\n{event.object}\n{err}')
+    if is_user:
+        vk.messages.send(
+            user_id=id,
+            random_id=get_random_id(),
+            message=message,
+            attachment=attachment)
+    else:
+        vk.messages.send(
+            chat_id=id,
+            random_id=get_random_id(),
+            message=message,
+            attachment=attachment)
 
 
 def check(t: str, d: 'list[str]') -> bool:
     return any([word in t.lower() for word in d])
 
 
-def getword(t: str, d: 'list[str]'):
+def get_word(t: str, d: 'list[str]') -> str:
     for word in d:
         if word in t.lower():
             return word.title()
 
-
+"""
 def give_answer(number, u_i=None, c_i=None):
     num_of_pic = 457239429
     if u_i:
@@ -78,7 +82,6 @@ def give_answer(number, u_i=None, c_i=None):
             is_user=False,
             id=c_i,
             attachment='photo-190285544_' + str(num_of_pic + number))
-
 
 def exam(msg, u_i=None, c_i=None):
     if msg[0] == 'ответ':
@@ -98,30 +101,19 @@ def exam(msg, u_i=None, c_i=None):
                     is_user=False,
                     id=c_i,
                     message='Бля, ты обосрался')
-
+"""
 
 for event in longpoll.listen():
     if event.type == VkBotEventType.MESSAGE_NEW and \
             len(event.obj.text) > 1 and \
             event.object.get('from_id') > 0:
         text = event.obj.text
-        for_exam = text.lower().split()
         if event.from_user:
             is_user = True
             id = event.object.from_id
         else:
             is_user = False
             id = event.chat_id
-        if text.lower() == 'программа':
-            vk_send(is_user=is_user, id=id, attachment=exam_program)
-        elif len(for_exam) > 1 and is_user:
-            # TODO: доделать нормальную реализацию, поиграться с функцией exam
-            exam(for_exam, event.object.from_id)
-        if len(for_exam) > 1 and for_exam[0] == 'ответ':
-            if len(for_exam) == 3 and for_exam[2] == 'лс':
-                exam(for_exam, u_i=event.object.from_id)
-            else:
-                exam(for_exam, c_i=event.chat_id)  # Конец блока экзамена
         if not (event.object.get('from_id') in blacklist):
             dangerous_point = text[-1] == '.' and text[-2] != '.'
             exclamation = event.object.get('from_id') == 27053186 and \
@@ -175,7 +167,7 @@ for event in longpoll.listen():
                     is_user=is_user,
                     id=id,
                     message=f'Кто-то сказал \
-                             "{getword(text, session)}"?',
+                             "{get_word(text, session)}"?',
                     attachment='photo-190285544_457239024')
             elif check(text, ugay):
                 vk_send(
@@ -215,5 +207,22 @@ for event in longpoll.listen():
                     is_user=is_user,
                     id=id,
                     message='Кошмар!')
-# TODO: Reply Таво
+            elif check(text, am_i_right):
+                yes_no = random(0, 1)
+                answer = random(0, len(yes_or_not[yes_no])-1)
+                if event.object.from_id == 118167164:  #  Protocol "Of course, master"
+                    vk_send(
+                        is_user=is_user,
+                        id=id,
+                        message=f'*id118167164(Ох, Создатель)...\n {yes_or_not[0][random(0, len(yes_or_not[0])-1)]}'
+                    )
+                else:
+                    vk_send(
+                        is_user=is_user,
+                        id=id,
+                        message=f'*id{event.object.from_id}({cute_word[random(0, len(cute_word)-1)]})...\n {yes_or_not[yes_no][answer]}'
+                )
+
 # TODO: В муте клоун дединсайд
+# TODO: Попробовать кейворды и их фотографии запихнуть в словарь, это сократит код
+# TODO: Придумать реализацию с БД и добавлением туда персональных кейвордов пользователей
