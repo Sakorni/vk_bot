@@ -74,10 +74,11 @@ def check(t: str, d: 'list[str]') -> bool:
     return any([word in t.lower() for word in d])
 
 
-def get_word(t: str, d: 'list[str]'):  # -> str не писать!
+def get_word(t: str, d: 'list[str]') -> str:
     for word in d:
         if word in t.lower():
             return word.title()
+    return ''
 
 
 for event in longpoll.listen():
