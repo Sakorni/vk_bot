@@ -4,7 +4,7 @@ import vk_api
 from vk_api.utils import get_random_id
 from vk_api.bot_longpoll import VkBotLongPoll, VkBotEventType
 from random import randint as random
-from keys import Test as Key
+from keys import Real as Key
 
 mayhem = ['пиздец', 'беспредел']
 mayhem_answers = ['Согласен, это полный', 'И не говори! Сплошной',
