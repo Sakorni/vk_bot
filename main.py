@@ -31,6 +31,7 @@ stream = ['каво?', 'вообще не понятно...', 'надо бы з�
 delaetsya = ['это делается', 'это и делается']
 exam_program = ['photo-190285544_457239428', 'photo-190285544_457239429']
 am_i_right = ['так ведь?', 'правильно говорю?', 'верно понял?', 'правильно понял?', 'получается?', 'двачер?']
+sudo_users = [118167164, 255536801, 202071395]
 blacklist = [355746597]  # Kspich
 vk_session = vk_api.VkApi(token=Key)
 vk = vk_session.get_api()
@@ -176,7 +177,8 @@ for event in longpoll.listen():
             elif check(text, am_i_right):
                 yes_no = random(0, 1)
                 answer = random(0, len(yes_or_not[yes_no])-1)
-                if event.object.from_id == 118167164 and 'sudo' in text.lower():
+                if event.object.from_id in sudo_users and \
+                        'sudo' in text.lower():
                     vk_send(
                         is_user=is_user,
                         id=id,
