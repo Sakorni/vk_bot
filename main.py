@@ -95,8 +95,8 @@ for event in longpoll.listen():
             is_user = False
             id = event.chat_id
         if not (event.object.get('from_id') in blacklist):
-            dangerous_point = text[-1] == '.' and text[-2] != '.' \
-                and event.object.from_id == 27053186
+            dangerous_point = bool(text[-1] == '.' and text[-2] != '.'
+                                   and event.object.from_id == 27053186)
             exclamation = event.object.get('from_id') == 27053186 and \
                 text[-1] == '!'
             if dangerous_point:
