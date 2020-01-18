@@ -194,15 +194,15 @@ for event in longpoll.listen():
                         is_user=is_user,
                         id=id,
                         message=f'*id{event.object.from_id}(Ох, Создатель)...'
-                        '\n {yes_or_not[0][rnd %  len(yes_or_not[0])]}'
+                        f'\n {yes_or_not[0][rnd %  len(yes_or_not[0])]}'
                     )
                 else:
                     vk_send(
                         is_user=is_user,
                         id=id,
                         message=f'*id{event.object.from_id}'
-                        '({cute_word[random(0, len(cute_word)-1)]})...\n'
-                                f'{yes_or_not[yes_no][answer]}'
+                        f'({cute_word[random(0, len(cute_word)-1)]})...\n'
+                        f'{yes_or_not[yes_no][answer]}'
                     )
 # TODO: Подумать о переносе кейвордов в отдельный файл...
 # TODO: В муте клоун дединсайд
