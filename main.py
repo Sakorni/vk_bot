@@ -81,6 +81,7 @@ def get_word(t: str, d: 'list[str]') -> str:
     return ''
 
 
+dangerous_point: bool
 for event in longpoll.listen():
     if event.type == VkBotEventType.MESSAGE_NEW and \
             len(event.obj.text) > 1 and \
