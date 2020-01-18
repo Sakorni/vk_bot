@@ -4,9 +4,11 @@ import vk_api
 from vk_api.utils import get_random_id
 from vk_api.bot_longpoll import VkBotLongPoll, VkBotEventType
 from random import randint as random
-from keys import Real as Key
+from keys import Test as Key
 
 mayhem = ['пиздец', 'беспредел']
+mayhem_answers = ['Согласен, это полный', 'И не говори! Сплошной',
+                  'Что бы сказал на это Насека?', 'Не, ну границы-то знать надо... Это уже какой-то']
 integrals = ['папей интегралов']
 agression = ['агрессия']
 yes_or_not = [['К о н е ч н о !', 'Абсолютно верно!', 'В точку!', 'Есессна!', 'Очевидно!',
@@ -14,12 +16,14 @@ yes_or_not = [['К о н е ч н о !', 'Абсолютно верно!', 'В �
               ['Не-а!', 'Н и х у я', 'А вот тут ты ошибаешься...', 'Нет.',
                'Что за херню я только что лицезрел? Чистейший бред от и до!',
                'Нет. Прошу, забудь как писать, чтобы никто больше не видел подобное.']]
-cute_word = ['Милашка моя', 'Зайка моя', 'Великоуважаемый мешок костей и плоти',  'Лапочка ты наша',
+cute_word = ['Милашка моя', 'Золотце', 'Великоуважаемый мешок костей и плоти',  'Лапочка ты наша',
              'Котя']
 froggy = ['жаба', 'жабу']
 language = ['лангуаже', 'лангуаге']
 session = ['добор', 'пересдача']
-ugay = ['сука я кто', 'сука, я кто', 'хто я']
+u_gay = ['сука я кто', 'сука, я кто', 'хто я']
+u_gay_answers = ['Ты еще спрашиваешь?', 'Ну, тут долго думать даже не надо, если честно',
+                 'Ответ, так сказать, на поверхности', 'Я готов подсказать!', 'Хах! Легчайший вопрос в моей жизни!']
 derivatives = ['папей производных']
 dispute = ['о чем спор?', 'о чём спор?', 'если через 10 лет...', 'спор фиита',
            'спор на фиите']
@@ -32,7 +36,7 @@ vk_session = vk_api.VkApi(token=Key)
 vk = vk_session.get_api()
 exclamation = False
 dangerous_point = False
-longpoll = VkBotLongPoll(vk_session, '190285544')
+longpoll = VkBotLongPoll(vk_session, '190612884')
 
 
 def report(message: str) -> None:
@@ -68,45 +72,13 @@ def get_word(t: str, d: 'list[str]') -> str:
         if word in t.lower():
             return word.title()
 
-"""
-def give_answer(number, u_i=None, c_i=None):
-    num_of_pic = 457239429
-    if u_i:
-        vk_send(
-            id=u_i,
-            message=giving[random(0, 3, 1)],
-            attachment='photo-190285544_' + str(num_of_pic + number))
-    elif c_i:
-        vk_send(
-            is_user=False,
-            id=c_i,
-            attachment='photo-190285544_' + str(num_of_pic + number))
-
-def exam(msg, u_i=None, c_i=None):
-    if msg[0] == 'ответ':
-        condition = msg[1].isdigit() and (0 < int(msg[1]) < 52)
-        if condition:
-            if u_i:
-                give_answer(int(msg[1]), u_i=u_i)
-            elif c_i:
-                give_answer(int(msg[1]), c_i=c_i)
-        else:
-            if u_i:
-                vk_send(
-                    id=u_i,
-                    message='Бля, ты обосрался')
-            elif c_i:
-                vk_send(
-                    is_user=False,
-                    id=c_i,
-                    message='Бля, ты обосрался')
-"""
 
 for event in longpoll.listen():
     if event.type == VkBotEventType.MESSAGE_NEW and \
             len(event.obj.text) > 1 and \
             event.object.get('from_id') > 0:
         text = event.obj.text
+        rnd = random(0, 20)
         if event.from_user:
             is_user = True
             id = event.object.from_id
@@ -114,22 +86,15 @@ for event in longpoll.listen():
             is_user = False
             id = event.chat_id
         if not (event.object.get('from_id') in blacklist):
-            dangerous_point = text[-1] == '.' and text[-2] != '.'
+            dangerous_point = text[-1] == '.' and text[-2] != '.' and event.object.from_id == 27053186
             exclamation = event.object.get('from_id') == 27053186 and \
                 text[-1] == '!'
             if dangerous_point:
-                if event.object.get('from_id') == 27053186:
-                    vk_send(
-                        is_user=is_user,
-                        id=id,
-                        message='Gotcha, bitch!',
-                        attachment='photo-190285544_457239019')
-                else:
-                    vk_send(
-                        is_user=is_user,
-                        id=id,
-                        attachment='photo-190285544_457239019')
-                    dangerous_point = False
+                vk_send(
+                    is_user=is_user,
+                    id=id,
+                    attachment='photo-190285544_457239019')
+                dangerous_point = False
             elif exclamation:
                 vk_send(
                     is_user=is_user,
@@ -140,6 +105,7 @@ for event in longpoll.listen():
                 vk_send(
                     is_user=is_user,
                     id=id,
+                    message=mayhem_answers[rnd % len(mayhem_answers)],
                     attachment='photo-190285544_457239018')
             elif check(text, integrals):
                 vk_send(
@@ -168,10 +134,11 @@ for event in longpoll.listen():
                     message=f'Кто-то сказал \
                              "{get_word(text, session)}"?',
                     attachment='photo-190285544_457239024')
-            elif check(text, ugay):
+            elif check(text, u_gay):
                 vk_send(
                     is_user=is_user,
                     id=id,
+                    message=u_gay_answers[rnd % len(u_gay_answers)],
                     attachment='photo-190285544_457239025')
             elif check(text, derivatives):
                 vk_send(
@@ -207,13 +174,13 @@ for event in longpoll.listen():
                     id=id,
                     message='Кошмар!')
             elif check(text, am_i_right):
-                yes_no = random(0, 1)
+                yes_no = rnd % 2
                 answer = random(0, len(yes_or_not[yes_no])-1)
-                if event.object.from_id == 118167164:  #  Protocol "Of course, master"
+                if event.object.from_id == 118167164 and 'sudo' in text.lower():
                     vk_send(
                         is_user=is_user,
                         id=id,
-                        message=f'*id118167164(Ох, Создатель)...\n {yes_or_not[0][random(0, len(yes_or_not[0])-1)]}'
+                        message=f'*id118167164(Ох, Создатель)...\n {yes_or_not[0][rnd %  len(yes_or_not[0])]}'
                     )
                 else:
                     vk_send(
