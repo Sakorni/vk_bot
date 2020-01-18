@@ -182,7 +182,7 @@ for event in longpoll.listen():
                     vk_send(
                         is_user=is_user,
                         id=id,
-                        message=f'*id118167164(Ох, Создатель)...\n {yes_or_not[0][rnd %  len(yes_or_not[0])]}'
+                        message=f'*id{event.object.from_id}(Ох, Создатель)...\n {yes_or_not[0][rnd %  len(yes_or_not[0])]}'
                     )
                 else:
                     vk_send(
