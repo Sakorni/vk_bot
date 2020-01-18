@@ -174,7 +174,7 @@ for event in longpoll.listen():
                     id=id,
                     message='Кошмар!')
             elif check(text, am_i_right):
-                yes_no = rnd % 2
+                yes_no = random(0, 1)
                 answer = random(0, len(yes_or_not[yes_no])-1)
                 if event.object.from_id == 118167164 and 'sudo' in text.lower():
                     vk_send(
@@ -186,7 +186,8 @@ for event in longpoll.listen():
                     vk_send(
                         is_user=is_user,
                         id=id,
-                        message=f'*id{event.object.from_id}({cute_word[random(0, len(cute_word)-1)]})...\n{yes_or_not[yes_no][answer]}'
+                        message=f'*id{event.object.from_id}({cute_word[random(0, len(cute_word)-1)]})...\n'
+                                f'{yes_or_not[yes_no][answer]}'
                 )
 # TODO: Подумать о переносе кейвордов в отдельный файл...
 # TODO: В муте клоун дединсайд
