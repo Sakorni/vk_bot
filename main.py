@@ -8,29 +8,34 @@ from keys import Real as Key
 
 mayhem = ['пиздец', 'беспредел']
 mayhem_answers = ['Согласен, это полный', 'И не говори! Сплошной',
-                  'Что бы сказал на это Насека?', 'Не, ну границы-то знать надо... Это уже какой-то']
+                  'Что бы сказал на это Насека?',
+                  'Не, ну границы-то знать надо... Это уже какой-то']
 integrals = ['папей интегралов']
 agression = ['агрессия']
-yes_or_not = [['К о н е ч н о !', 'Абсолютно верно!', 'В точку!', 'Есессна!', 'Очевидно!',
+yes_or_not = [['К о н е ч н о !', 'Абсолютно верно!', 'В точку!', 'Есессна!',
+               'Очевидно!',
                'Ну... Получается так, да.'],
               ['Не-а!', 'Н и х у я', 'А вот тут ты ошибаешься...', 'Нет.',
                'Что за херню я только что лицезрел? Чистейший бред от и до!',
-               'Нет. Прошу, забудь как писать, чтобы никто больше не видел подобное.']]
-cute_word = ['Милашка моя', 'Золотце', 'Великоуважаемый мешок костей и плоти',  'Лапочка ты наша',
-             'Котя']
+               'Нет. Прошу, забудь как писать, чтобы никто больше не видел'
+               ' подобное.']]
+cute_word = ['Милашка моя', 'Золотце', 'Великоуважаемый мешок костей и плоти',
+             'Лапочка ты наша', 'Котя']
 froggy = ['жаба', 'жабу']
 language = ['лангуаже', 'лангуаге']
 session = ['добор', 'пересдача']
 u_gay = ['сука я кто', 'сука, я кто', 'хто я']
-u_gay_answers = ['Ты еще спрашиваешь?', 'Ну, тут долго думать даже не надо, если честно',
-                 'Ответ, так сказать, на поверхности', 'Я готов подсказать!', 'Хах! Легчайший вопрос в моей жизни!']
+u_gay_answers = ['Ты еще спрашиваешь?', 'Ну, тут долго думать даже не надо, '
+                 'если честно', 'Ответ, так сказать, на поверхности',
+                 'Я готов подсказать!', 'Хах! Легчайший вопрос в моей жизни!']
 derivatives = ['папей производных']
 dispute = ['о чем спор?', 'о чём спор?', 'если через 10 лет...', 'спор фиита',
            'спор на фиите']
 stream = ['каво?', 'вообще не понятно...', 'надо бы запустить стрим...']
 delaetsya = ['это делается', 'это и делается']
 exam_program = ['photo-190285544_457239428', 'photo-190285544_457239429']
-am_i_right = ['так ведь?', 'правильно говорю?', 'верно понял?', 'правильно понял?', 'получается?', 'двачер?']
+am_i_right = ['так ведь?', 'правильно говорю?', 'верно понял?',
+              'правильно понял?', 'получается?', 'двачер?']
 sudo_users = [118167164, 255536801, 202071395]
 blacklist = [355746597]  # Kspich
 vk_session = vk_api.VkApi(token=Key)
@@ -48,7 +53,8 @@ def report(message: str) -> None:
         message='Бля, чуть не упал, а всё из-за этого!\n' + message)
 
 
-def vk_send(is_user=True, id=None, message: str = None, attachment=None) -> None:
+def vk_send(is_user=True, id=None, message: str = None,
+            attachment=None) -> None:
     """Процедура отправки сообщений"""
     if is_user:
         vk.messages.send(
@@ -68,7 +74,7 @@ def check(t: str, d: 'list[str]') -> bool:
     return any([word in t.lower() for word in d])
 
 
-def get_word(t: str, d: 'list[str]') -> str:
+def get_word(t: str, d: 'list[str]'):  # -> str не писать!
     for word in d:
         if word in t.lower():
             return word.title()
@@ -87,7 +93,8 @@ for event in longpoll.listen():
             is_user = False
             id = event.chat_id
         if not (event.object.get('from_id') in blacklist):
-            dangerous_point = text[-1] == '.' and text[-2] != '.' and event.object.from_id == 27053186
+            dangerous_point = text[-1] == '.' and text[-2] != '.' \
+                and event.object.from_id == 27053186
             exclamation = event.object.get('from_id') == 27053186 and \
                 text[-1] == '!'
             if dangerous_point:
@@ -182,16 +189,20 @@ for event in longpoll.listen():
                     vk_send(
                         is_user=is_user,
                         id=id,
-                        message=f'*id{event.object.from_id}(Ох, Создатель)...\n {yes_or_not[0][rnd %  len(yes_or_not[0])]}'
+                        message=f'*id{event.object.from_id}(Ох, Создатель)...'
+                        '\n {yes_or_not[0][rnd %  len(yes_or_not[0])]}'
                     )
                 else:
                     vk_send(
                         is_user=is_user,
                         id=id,
-                        message=f'*id{event.object.from_id}({cute_word[random(0, len(cute_word)-1)]})...\n'
+                        message=f'*id{event.object.from_id}'
+                        '({cute_word[random(0, len(cute_word)-1)]})...\n'
                                 f'{yes_or_not[yes_no][answer]}'
-                )
+                    )
 # TODO: Подумать о переносе кейвордов в отдельный файл...
 # TODO: В муте клоун дединсайд
-# TODO: Попробовать кейворды и их фотографии запихнуть в словарь, это сократит код
-# TODO: Придумать реализацию с БД и добавлением туда персональных кейвордов пользователей
+# TODO: Попробовать кейворды и их фотографии запихнуть в словарь,
+#  это сократит код
+# TODO: Придумать реализацию с БД и добавлением туда персональных
+#  кейвордов пользователей
