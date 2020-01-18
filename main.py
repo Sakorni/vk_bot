@@ -71,10 +71,13 @@ def vk_send(is_user=True, id=None, message: str = None,
 
 
 def check(t: str, d: 'list[str]') -> bool:
+    """Проверяет, есть ли слово в списке"""
+    # TODO: Можно убрать check и использовать get_word вместо неё
     return any([word in t.lower() for word in d])
 
 
 def get_word(t: str, d: 'list[str]') -> str:
+    """Возвращает слово из списка"""
     for word in d:
         if word in t.lower():
             return word.title()
