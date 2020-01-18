@@ -82,6 +82,8 @@ def get_word(t: str, d: 'list[str]') -> str:
 
 
 dangerous_point: bool
+is_user: bool
+id: int  # TODO: Поменять название переменной для избежания коллизии имён
 for event in longpoll.listen():
     if event.type == VkBotEventType.MESSAGE_NEW and \
             len(event.obj.text) > 1 and \
@@ -185,7 +187,7 @@ for event in longpoll.listen():
                     message='Кошмар!')
             elif check(text, am_i_right):
                 yes_no = random(0, 1)
-                answer = random(0, len(yes_or_not[yes_no])-1)
+                answer = random(0, len(yes_or_not[yes_no]) - 1)
                 if event.object.from_id in sudo_users and \
                         'sudo' in text.lower():
                     vk_send(
