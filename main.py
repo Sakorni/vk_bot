@@ -36,7 +36,7 @@ vk_session = vk_api.VkApi(token=Key)
 vk = vk_session.get_api()
 exclamation = False
 dangerous_point = False
-longpoll = VkBotLongPoll(vk_session, '190612884')
+longpoll = VkBotLongPoll(vk_session, '190285544')
 
 
 def report(message: str) -> None:
