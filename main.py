@@ -146,8 +146,8 @@ for event in longpoll.listen():
                 vk_send(
                     is_user=is_user,
                     id=id,
-                    message=f'Кто-то сказал \
-                             "{get_word(text, session)}"?',
+                    message='Кто-то сказал'
+                            f"{get_word(text, session)}?",
                     attachment='photo-190285544_457239024')
             elif check(text, u_gay):
                 vk_send(
