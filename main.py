@@ -25,7 +25,7 @@ froggy = ['жаба', 'жабу']
 language = ['лангуаже', 'лангуаге']
 u_gay = ['сука я кто', 'сука, я кто', 'хто я']
 u_gay_answers = ['Ты еще спрашиваешь?', 'Ну, тут долго думать даже не надо, '
-                 'если честно', 'Ответ, так сказать, на поверхности',
+                                        'если честно', 'Ответ, так сказать, на поверхности',
                  'Я готов подсказать!', 'Хах! Легчайший вопрос в моей жизни!']
 derivatives = ['папей производных']
 dispute = ['о чем спор?', 'о чём спор?', 'если через 10 лет...', 'спор фиита',
@@ -86,6 +86,7 @@ def get_word(t: str, d: 'list[str]') -> str:
     return ''
 
 
+vagina = False
 dangerous_point: bool
 is_user: bool
 id: int  # TODO: Поменять название переменной для избежания коллизии имён
@@ -105,7 +106,13 @@ for event in longpoll.listen():
             dangerous_point = bool(text[-1] == '.' and text[-2] != '.'
                                    and event.object.from_id == 27053186)
             exclamation = event.object.get('from_id') == 27053186 and \
-                text[-1] == '!'
+                          text[-1] == '!'
+            if event.object.from_id in sudo_users and \
+                'sudo' in text.lower():
+                if text.lower() == "sudo пизда":
+                    vagina = True
+                elif text.lower() == "sudo не пизда":
+                    vagina = True
             if dangerous_point:
                 vk_send(
                     is_user=is_user,
@@ -118,6 +125,11 @@ for event in longpoll.listen():
                     id=id,
                     message='И ведь не соврал...',
                     attachment='photo-190285544_457239427')
+            elif vagina and ("да" == text.lower()):
+                vk_send(
+                    is_user=is_user,
+                    id=id,
+                    attachment='photo-190285544_457239482')
             elif check(text, mayhem):
                 vk_send(
                     is_user=is_user,
@@ -192,15 +204,15 @@ for event in longpoll.listen():
                         is_user=is_user,
                         id=id,
                         message=f'*id{event.object.from_id}(Ох, Создатель)...'
-                        f'\n {yes_or_not[0][rnd %  len(yes_or_not[0])]}'
+                                f'\n {yes_or_not[0][rnd % len(yes_or_not[0])]}'
                     )
                 else:
                     vk_send(
                         is_user=is_user,
                         id=id,
                         message=f'*id{event.object.from_id}'
-                        f'({cute_word[random(0, len(cute_word)-1)]})...\n'
-                        f'{yes_or_not[yes_no][answer]}'
+                                f'({cute_word[random(0, len(cute_word) - 1)]})...\n'
+                                f'{yes_or_not[yes_no][answer]}'
                     )
             elif check(text, funny):
                 print(1)
