@@ -112,7 +112,7 @@ for event in longpoll.listen():
                 if text.lower() == "sudo пизда":
                     vagina = True
                 elif text.lower() == "sudo не пизда":
-                    vagina = True
+                    vagina = False
             if dangerous_point:
                 vk_send(
                     is_user=is_user,
